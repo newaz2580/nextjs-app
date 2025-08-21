@@ -1,7 +1,18 @@
-import Image from "next/image";
+import Hero from "@/components/Hero";
+import Page from '@/app/products/page'
+
+
+
+
+
+
 
 export default function Home() {
   return (
-    <h1>Navbar</h1>
+    <>
+    <Hero/>
+    <Page></Page>
+   
+    </>
   );
 }

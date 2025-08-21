@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import React from 'react';
+import LoginButton from './LoginButton';
 
 const Navbar = () => {
     return (
-        <div className="navbar bg-base-100 shadow-sm">
+        <div className="navbar bg-base-100 shadow-sm sticky top-0 left-0 right-0 z-30">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -12,15 +13,15 @@ const Navbar = () => {
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li><a>Item 1</a></li>
-        <li>
-          <a>Parent</a>
-          <ul className="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </li>
-        <li><a>Item 3</a></li>
+         <li>
+        <Link href={'/'}>Home</Link>
+      </li>
+      <li>
+        <Link href={'/products'}>Products</Link>
+      </li>
+      <li>
+        <Link href={'/dashboard'}>Dashboard</Link>
+      </li>
       </ul>
     </div>
     <a className="btn btn-ghost text-xl">daisyUI</a>
@@ -33,21 +34,15 @@ const Navbar = () => {
       <li>
         <Link href={'/products'}>Products</Link>
       </li>
-     
       <li>
-        <details>
-          <summary>Parent</summary>
-          <ul className="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </details>
+        <Link href={'/dashboard'}>Dashboard</Link>
       </li>
-      <li><a>Item 3</a></li>
+     
+      
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Button</a>
+    <LoginButton></LoginButton>
   </div>
 </div>
     );

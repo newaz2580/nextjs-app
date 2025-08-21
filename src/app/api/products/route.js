@@ -1,6 +1,35 @@
-import { NextResponse } from "next/server"
-import { products } from "@/lib/Product"
+import clientPromise from "@/lib/mongodb";
 
 export async function GET() {
-  return NextResponse.json(products)
+  try {
+    const client = await clientPromise;
+    const db = client.db("productDB"); // database name
+    const products = await db.collection("products").find({}).toArray();
+
+    return new Response(JSON.stringify(products), {
+      status: 200,
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+    });
+  }
+}
+
+export async function POST(req) {
+  try {
+    const client = await clientPromise;
+    const db = client.db("productDB"); // Database name
+    const data = await req.json();
+
+    // Insert into "products" collection
+    const result = await db.collection("products").insertOne(data);
+
+    return new Response(
+      JSON.stringify({ success: true, id: result.insertedId }),
+      { status: 200 }
+    );
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+  }
 }

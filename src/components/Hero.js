@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import UserInfo from "./UserInfo"
 
 export default function Hero() {
   return (
@@ -30,8 +31,8 @@ export default function Hero() {
 
         {/* Hero Image */}
         <div className="md:w-1/2 mt-8 md:mt-0">
-        
-         {/* <Image src="https://i.ibb.co.com/B513hRpQ/Home-Repair.jpg" width={500} height={400} alt="Banner" /> */}
+         {/* <UserInfo></UserInfo> */}
+         <Image src="https://i.ibb.co.com/B513hRpQ/Home-Repair.jpg" width={500} height={200} alt="Banner" />
         </div>
       </div>
     </section>

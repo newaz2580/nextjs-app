@@ -1,47 +1,59 @@
-import Image from "next/image"
-import React from "react"
-
-async function getProducts() {
-  const res = await fetch("http://localhost:3000/api/products", { cache: "no-store" })
-  if (!res.ok) throw new Error("Failed to fetch products")
-  return res.json()
-}
+import clientPromise from "@/lib/mongodb";
+import Image from "next/image";
+import Link from "next/link";
+import { ObjectId } from "mongodb";
 
 const SingleProduct = async ({ params }) => {
-  const { id } = params
-  const products = await getProducts()
-  const product = products.find(p => p.id === id)
+  const { id } = params;
+
+  // Connect to MongoDB
+  const client = await clientPromise;
+  const db = client.db("productDB"); // Your database name
+  const collection = db.collection("products");
+
+  // Find product by _id
+  let product;
+  try {
+    product = await collection.findOne({ _id: new ObjectId(id) });
+  } catch (error) {
+    return (
+      <div className="container mx-auto px-6 py-10">
+        <h2 className="text-2xl font-bold text-red-500">Invalid Product ID</h2>
+        <Link href="/products" className="text-blue-500 underline mt-4 inline-block">
+          Back to Products
+        </Link>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
       <div className="container mx-auto px-6 py-10">
         <h2 className="text-2xl font-bold text-red-500">Product not found</h2>
+        <Link href="/products" className="text-blue-500 underline mt-4 inline-block">
+          Back to Products
+        </Link>
       </div>
-    )
+    );
   }
 
   return (
     <div className="container mx-auto px-6 py-10">
-      
-      {product.image && (
-                    <div className="w-full h-48 relative mb-4">
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        fill
-                        className="object-cover rounded"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      />
-                    </div>
-                  )}
-      {/* Product Name */}
+      {/* Product Image */}
+      {product.image && product.image.startsWith("http") && (
+        <div className="w-full h-80 relative mb-6">
+          <Image
+            src={product.image.trim()}
+            alt={product.name}
+            fill
+            className="object-cover rounded-lg"
+          />
+        </div>
+      )}
 
+      {/* Product Info */}
       <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-
-      {/* Price */}
       <p className="text-xl font-semibold mb-4">${product.price}</p>
-
-      {/* Description */}
       <p className="text-gray-700 mb-4">{product.description}</p>
 
       {/* Additional Info */}
@@ -52,8 +64,8 @@ const SingleProduct = async ({ params }) => {
       </ul>
 
       {/* Features */}
-      {product.features && (
-        <div className="mb-4">
+      {product.features && product.features.length > 0 && (
+        <div className="mb-6">
           <h3 className="font-semibold mb-2">Features:</h3>
           <ul className="list-disc list-inside text-gray-600">
             {product.features.map((feature, index) => (
@@ -64,9 +76,11 @@ const SingleProduct = async ({ params }) => {
       )}
 
       {/* Back Link */}
-      <a href="/products" className="text-blue-500 underline">Back to Products</a>
+      <Link href="/products" className="text-blue-500 underline">
+        Back to Products
+      </Link>
     </div>
-  )
-}
+  );
+};
 
-export default SingleProduct
+export default SingleProduct;

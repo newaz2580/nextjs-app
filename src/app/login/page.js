@@ -1,17 +1,28 @@
-"use client";
+"use client"
 
-import { signIn } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 export default function LoginPage() {
+  const { data: session } = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (session) {
+      router.push("/products") // redirect after login
+    }
+  }, [session])
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-3xl mb-6">Login</h1>
+    <div className="container mx-auto py-10">
+      <h1 className="text-3xl font-bold mb-4">Login</h1>
       <button
         onClick={() => signIn("google")}
-        className="px-6 py-3 bg-blue-500 text-white rounded"
+        className="btn btn-primary"
       >
         Login with Google
       </button>
     </div>
-  );
+  )
 }

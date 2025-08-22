@@ -6,10 +6,10 @@ import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   return (
-    <div className="navbar bg-base-100 shadow-sm sticky top-0 z-30">
+    <div className="navbar bg-base-100 shadow-sm sticky top-0 z-30 md:px-20 ">
       <div className="navbar-start">
         <Link href="/" className="btn btn-ghost text-xl">
-          MyShop
+          GadgetZoom
         </Link>
       </div>
 
@@ -22,8 +22,9 @@ export default function Navbar() {
             <Link href="/products">Products</Link>
           </li>
           <li>
-            <Link href="/dashboard">Dashboard</Link>
+            <Link href="/add-product">Add Product</Link>
           </li>
+          
         </ul>
       </div>
 

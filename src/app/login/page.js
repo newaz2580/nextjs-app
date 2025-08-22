@@ -10,12 +10,12 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (session) {
-      router.push("/products") // redirect after login
+      router.push("/products") 
     }
   }, [session])
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-10 text-center">
       <h1 className="text-3xl font-bold mb-4">Login</h1>
       <button
         onClick={() => signIn("google")}

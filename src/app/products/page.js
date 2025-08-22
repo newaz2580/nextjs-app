@@ -11,29 +11,48 @@ export default async function ProductsPage() {
   const products = await getProducts();
 
   return (
-    <div className="container mx-auto px-6 py-10">
-      <h1 className="text-3xl font-bold mb-6">Products</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="container mx-auto px-6 py-12 md:px-20">
+      {/* Page Heading */}
+      <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-10 text-gray-800 dark:text-white drop-shadow">
+        Our Products
+      </h1>
+
+      {/* Products Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {products.map((product) => (
-          <div key={product._id} className="border rounded-lg p-4 shadow hover:shadow-lg transition">
+          <div
+            key={product._id}
+            className="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-2"
+          >
+            {/* Product Image */}
             {product.image && product.image.startsWith("http") && (
-              <div className="w-full h-48 relative mb-4">
+              <div className="relative w-full h-48">
                 <Image
                   src={product.image.trim()}
                   alt={product.name}
                   fill
-                  className="object-cover rounded"
+                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
             )}
-            <h2 className="text-xl font-semibold">{product.name}</h2>
-            <p className="font-bold mt-2">${product.price}</p>
-            <Link
-              href={`/products/${product._id}`}
-              className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400 transition"
-            >
-              Details
-            </Link>
+
+            {/* Product Info */}
+            <div className="p-4 flex flex-col justify-between h-48">
+              <div>
+                <h2 className="text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
+                  {product.name}
+                </h2>
+                <p className="text-blue-500 font-bold mt-2 text-lg">Price:${product.price}</p>
+              </div>
+
+              {/* Details Button */}
+              <Link
+                href={`/products/${product._id}`}
+                className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-400 transition font-medium text-center"
+              >
+                View Details
+              </Link>
+            </div>
           </div>
         ))}
       </div>

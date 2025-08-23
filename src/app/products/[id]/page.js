@@ -8,7 +8,7 @@ const SingleProduct = async ({ params }) => {
 
   // Connect to MongoDB
   const client = await clientPromise;
-  const db = client.db("productDB"); // Your database name
+  const db = client.db("productDB"); 
   const collection = db.collection("products");
 
   // Find product by _id
@@ -19,7 +19,10 @@ const SingleProduct = async ({ params }) => {
     return (
       <div className="container mx-auto px-6 py-10 text-center">
         <h2 className="text-2xl font-bold text-red-500">Invalid Product ID</h2>
-        <Link href="/products" className="text-blue-500 underline mt-4 inline-block">
+        <Link
+          href="/products"
+          className="text-blue-500 underline mt-4 inline-block"
+        >
           Back to Products
         </Link>
       </div>
@@ -30,7 +33,10 @@ const SingleProduct = async ({ params }) => {
     return (
       <div className="container mx-auto px-6 py-10 text-center">
         <h2 className="text-2xl font-bold text-red-500">Product not found</h2>
-        <Link href="/products" className="text-blue-500 underline mt-4 inline-block">
+        <Link
+          href="/products"
+          className="text-blue-500 underline mt-4 inline-block"
+        >
           Back to Products
         </Link>
       </div>
@@ -41,7 +47,6 @@ const SingleProduct = async ({ params }) => {
     <div className="container mx-auto px-6 py-12 md:px-20">
       {/* Product Wrapper */}
       <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
-        
         {/* Product Image */}
         {product.image && product.image.startsWith("http") && (
           <div className="relative w-full lg:w-1/2 h-80 md:h-[400px] rounded-xl overflow-hidden shadow-lg">
@@ -59,14 +64,24 @@ const SingleProduct = async ({ params }) => {
           <h1 className="text-4xl font-extrabold text-gray-800 dark:text-white mb-4">
             {product.name}
           </h1>
-          <p className="text-2xl text-blue-600 font-bold mb-4">${product.price}</p>
-          <p className="text-gray-700 dark:text-gray-300 mb-6">{product.description}</p>
+          <p className="text-2xl text-blue-600 font-bold mb-4">
+            ${product.price}
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 mb-6">
+            {product.description}
+          </p>
 
           {/* Additional Info */}
           <div className="mb-6 space-y-2">
-            <p><strong>Brand:</strong> {product.brand}</p>
-            <p><strong>Category:</strong> {product.category}</p>
-            <p><strong>Stock:</strong> {product.stock}</p>
+            <p>
+              <strong>Brand:</strong> {product.brand}
+            </p>
+            <p>
+              <strong>Category:</strong> {product.category}
+            </p>
+            <p>
+              <strong>Stock:</strong> {product.stock}
+            </p>
           </div>
 
           {/* Features */}
@@ -89,7 +104,6 @@ const SingleProduct = async ({ params }) => {
             >
               Back to Products
             </Link>
-            
           </div>
         </div>
       </div>

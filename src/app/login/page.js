@@ -12,7 +12,7 @@ export default function LoginPage() {
     if (session) {
       router.push("/products") 
     }
-  }, [session])
+  }, [session,router])
 
   return (
     <div className="container mx-auto py-10 text-center">

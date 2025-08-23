@@ -1,8 +1,8 @@
-import NextAuth from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
-import CredentialsProvider from "next-auth/providers/credentials"
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-export const GET = NextAuth({
+const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -15,21 +15,14 @@ export const GET = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // Example credential check
-        if (
-          credentials.username === "admin" &&
-          credentials.password === "admin123"
-        ) {
-          return { id: 1, name: "Admin", email: "admin@example.com" }
+        if (credentials.username === "admin" && credentials.password === "admin123") {
+          return { id: 1, name: "Admin", email: "admin@example.com" };
         }
-        return null
+        return null;
       },
     }),
   ],
-  pages: {
-    signIn: "/login",
-    error: "/login",
-  },
-})
+  pages: { signIn: "/login", error: "/login" },
+});
 
-export { GET, GET as POST }
+export { handler as GET, handler as POST };

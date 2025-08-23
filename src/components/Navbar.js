@@ -60,7 +60,7 @@ export default function Navbar() {
 
       {/* Navbar End */}
       <div className="navbar-end flex gap-2">
-        <ThemeToggle />
+        
         <LoginButton />
       </div>
     </div>
